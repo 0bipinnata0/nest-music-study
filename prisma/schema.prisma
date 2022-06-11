@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE")
+  shadowDatabaseUrl = env("HEROKU_POSTGRESQL_GREEN")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  email     String    @unique
+  password  String
+  playlists Playist[]
+}
+
+model Song {
+  id        Int       @id @default(autoincrement())
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  name      String
+  Artist    Artist    @relation(fields: [artistId], references: [id])
+  artistId  Int
+  playlists Playist[]
+}
+
+model Artist {
+  id        Int      @id @default(autoincrement())
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  songs     Song[]
+  name      String   @unique
+}
+
+model Playist {
+  id        Int      @id @default(autoincrement())
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  Song      Song[]
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+}
