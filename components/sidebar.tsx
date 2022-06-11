@@ -41,22 +41,22 @@ const SideBar = () => {
         <Box width="120px" marginBottom="20px" paddingX="20px">
           <NextImage src="/logo.svg" height="60" width="120" />
         </Box>
-      </Box>
-      <Box marginBottom="20px">
-        <List>
-          {navMenu.map(({ name, route, icon }) => (
-            <ListItem paddingX="20px" fontSize="16px" key={name}>
-              <LinkBox>
-                <NextLink href={route} passHref>
-                  <LinkOverlay>
-                    <ListIcon as={icon} color="white" marginRight="20px" />
-                    {name}
-                  </LinkOverlay>
-                </NextLink>
-              </LinkBox>
-            </ListItem>
-          ))}
-        </List>
+        <Box marginBottom="20px">
+          <List spacing="2">
+            {navMenu.map(({ name, route, icon }) => (
+              <ListItem paddingX="20px" fontSize="16px" key={name}>
+                <LinkBox>
+                  <NextLink href={route} passHref>
+                    <LinkOverlay>
+                      <ListIcon as={icon} color="white" marginRight="20px" />
+                      {name}
+                    </LinkOverlay>
+                  </NextLink>
+                </LinkBox>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Box>
     </Box>
   );
