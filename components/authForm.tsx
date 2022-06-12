@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/layout";
 import { Button, Input } from "@chakra-ui/react";
 import { FC, FormEventHandler, useState } from "react";
 import NextImage from "next/image";
-import { auth, AuthMode } from "@/lib/auth";
+import { auth, AuthMode } from "@/lib/mutations";
 
 const AuthForm: FC<{ mode: AuthMode }> = ({ mode }) => {
   const [email, setEmail] = useState("");
