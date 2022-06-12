@@ -50,6 +50,7 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "warn"
   }
 }

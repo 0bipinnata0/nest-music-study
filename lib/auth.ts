@@ -1,16 +1,18 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import constants from "@/constant/index";
 import jwt from "jsonwebtoken";
-import prisma from "@/lib/prisma";
+import { NextApiRequest, NextApiResponse } from "next";
 
-type HandlerCb = <T>(
+import constants from "@/constant/index";
+import prisma from "@/lib/prisma";
+import { User } from "@prisma/client";
+
+export type HandlerCb = (
   req: NextApiRequest,
   res: NextApiResponse,
-  user: T
+  user: User
 ) => void;
 
-const validateRoute = (handler: HandlerCb) => {
-  return (req: NextApiRequest, res: NextApiResponse) => {
+export const validateRoute = (handler: HandlerCb) => {
+  return async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.cookies[constants.TRAX_ACCESS_TOKEN];
     if (!token) {
       res.status(401);
@@ -29,7 +31,7 @@ const validateRoute = (handler: HandlerCb) => {
       if (Number.isNaN(id)) {
         throw new Error();
       }
-      const user = prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
