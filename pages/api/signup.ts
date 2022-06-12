@@ -3,11 +3,12 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
+import constants from "@/constant/index";
 
 const signup = async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
 
-  const { email, password } = req.body;
+  const { email, password } = req.body as { email: string; password: string };
 
   try {
     const user = await prisma.user.create({
@@ -29,7 +30,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
     );
     res.setHeader(
       "Set-Cookie",
-      cookie.serialize("TRAX_ACCESS_TOKEN", token, {
+      cookie.serialize(constants.TRAX_ACCESS_TOKEN, token, {
         httpOnly: true,
         maxAge: 8 * 60 * 60,
         path: "/",

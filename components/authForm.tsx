@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { Button, Input } from "@chakra-ui/react";
-import { FC, FormEventHandler, useState } from "react";
+import { FC, useState, FormEvent } from "react";
 import NextImage from "next/image";
 import { auth, AuthMode } from "@/lib/mutations";
 
@@ -8,7 +8,7 @@ const AuthForm: FC<{ mode: AuthMode }> = ({ mode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit: FormEventHandler = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     await auth(mode, { email, password });

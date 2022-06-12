@@ -3,9 +3,10 @@ import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
+import constants from "@/constant/index";
 
 const SignIn = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body as { email: string; password: string };
 
   const user = await prisma.user.findUnique({
     where: {
@@ -28,7 +29,7 @@ const SignIn = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.setHeader(
       "Set-Cookie",
-      cookie.serialize("TRAX_ACCESS_TOKEN", token, {
+      cookie.serialize(constants.TRAX_ACCESS_TOKEN, token, {
         httpOnly: true,
         maxAge: 8 * 60 * 60,
         path: "/",

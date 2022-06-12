@@ -1,5 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb", "airbnb/hooks", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "env": {
     "browser": true,
@@ -12,9 +20,12 @@
       "jsx": true
     },
     "ecmaVersion": 13,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-misused-promises": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
