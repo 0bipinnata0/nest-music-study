@@ -1,7 +1,16 @@
 import GradientLayout from "@/components/GradientLayout";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import { Artist } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
-const Home: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const artists = await prisma.artist.findMany({});
+  return {
+    props: { artists: JSON.parse(JSON.stringify(artists)) },
+  };
+};
+
+const Home: NextPage<{ artists: Artist[] }> = (props) => {
   return (
     <GradientLayout
       roundImage
